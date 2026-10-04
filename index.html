@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaowkitkat Payment</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'IBM Plex Sans Thai', sans-serif;
+            background: linear-gradient(135deg, #fce5f8 0%, #f2dfff 100%);
+            color: #73373b;
+        }
+        .bounce-hover {
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .bounce-hover:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-10 px-4 relative overflow-x-hidden">
+
+    <!-- Toast Notification (Popup เวลาคัดลอกสำเร็จ) -->
+    <div id="toast" class="fixed top-6 left-1/2 transform -translate-x-1/2 bg-[#73373b] text-white px-6 py-3 rounded-full shadow-lg transition-all duration-300 opacity-0 -translate-y-4 pointer-events-none z-50 flex items-center gap-2 font-medium text-sm">
+        <span>✨</span>
+        <span id="toast-message">คัดลอกสำเร็จแล้วค่ะ 🌸</span>
+    </div>
+
+    <!-- Header Section -->
+    <div class="relative z-10 mb-6 text-center space-y-1">
+        <div class="text-2xl font-bold tracking-wide flex items-center justify-center gap-2 text-[#73373b]">
+            <span>𓈒 ݁ 𝗛𝗼𝘄 𝘁𝗼 𝗣𝗮𝘆 🐰⌇ 𓏸 𓈒</span>
+        </div>
+        <p class="text-base font-semibold text-[#73373b]">𐙚 𝗞𝗮𝗼𝘄𝗸𝗶𝘁𝗸𝗮𝘁 ♡</p>
+    </div>
+
+    <!-- Container หลัก -->
+    <div class="max-w-md w-full relative z-10 space-y-5">
+
+        <!-- PART 1: รายละเอียดบัญชี & การแจ้งเตือน -->
+        <div class="bg-white/90 backdrop-blur-sm p-6 rounded-[24px] border-2 border-dashed border-[#ffd6f7] shadow-sm relative text-center space-y-4">
+            
+            <div class="space-y-2">
+                <div class="text-sm font-semibold bg-[#fce5f8] text-[#73373b] py-1.5 px-4 rounded-full inline-block border border-[#ffd6f7]">
+                    🌸 ชื่อบัญชี: <span class="font-bold">ธนิษฐา แ.</span> (บัญชีเดียวเท่านั้น!) 🌸
+                </div>
+                <p class="text-xs text-[#73373b] opacity-80 leading-relaxed">
+                    📌 รับชำระ Wallet & Bank<br>
+                    เช็คชื่อก่อนโอนน้า โอนผิดไม่รับผิดชอบทุกกรณีค่ะ ✨
+                </p>
+            </div>
+
+            <!-- รายการบัญชีโอนเงิน -->
+            <div class="space-y-3 pt-2">
+                
+                <!-- TrueMoney Wallet -->
+                <div class="bg-white rounded-[18px] p-3.5 flex items-center justify-between border border-[#ffd6f7] shadow-sm hover:shadow-md transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-[#fde9e9] rounded-full flex items-center justify-center text-base font-bold border border-[#ffd6f7]">
+                            🍥
+                        </div>
+                        <div class="text-left">
+                            <div class="text-[11px] font-medium opacity-75">TrueMoney Wallet</div>
+                            <div class="font-bold text-base tracking-wider">091-196-9746</div>
+                        </div>
+                    </div>
+                    <button onclick="copyText('0911969746', this)" class="bounce-hover bg-[#fde9e9] hover:bg-[#f2dfff] text-[#73373b] text-xs font-semibold px-4 py-2 rounded-full transition-colors flex items-center gap-1 border border-[#ffd6f7] whitespace-nowrap">
+                        🩵 คัดลอก
+                    </button>
+                </div>
+
+                <!-- SCB Bank -->
+                <div class="bg-white rounded-[18px] p-3.5 flex items-center justify-between border border-[#ffd6f7] shadow-sm hover:shadow-md transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-[#f2dfff] rounded-full flex items-center justify-center text-base font-bold border border-[#ffd6f7]">
+                            🌸
+                        </div>
+                        <div class="text-left">
+                            <div class="text-[11px] font-medium opacity-75">ธนาคารไทยพาณิชย์ (SCB)</div>
+                            <div class="font-bold text-base tracking-wider">411-1-48783-0</div>
+                        </div>
+                    </div>
+                    <button onclick="copyText('4111487830', this)" class="bounce-hover bg-[#f2dfff] hover:bg-[#fce5f8] text-[#73373b] text-xs font-semibold px-4 py-2 rounded-full transition-colors flex items-center gap-1 border border-[#ffd6f7] whitespace-nowrap">
+                        🩵 คัดลอก
+                    </button>
+                </div>
+
+                <div class="text-[11px] text-[#73373b] font-medium opacity-80 pt-1">
+                    * กรณีโอนผ่าน Wallet รบกวน +2฿ น้า ˚. ᵎᵎ *
+                </div>
+            </div>
+        </div>
+
+        <!-- PART 2: เทมเพลตโน้ตสลิป -->
+        <div class="bg-white/90 backdrop-blur-sm p-5 rounded-[24px] border-2 border-dashed border-[#ffd6f7] shadow-sm relative space-y-3">
+            <div class="flex items-center gap-2 text-sm font-semibold">
+                <span>𓈒𓏸 ✿ บันทึกช่วยจำ / โน๊ตสลิป ✿ 𓏸𓈒</span>
+            </div>
+
+            <div class="bg-[#fce5f8] p-3.5 rounded-2xl border border-[#ffd6f7] flex items-center justify-between gap-2">
+                <span id="slip-note-text" class="text-xs font-semibold text-[#73373b] select-all">
+                    ใช้บริการร้าน Kaowkitkat
+                </span>
+                <button onclick="copyText('ใช้บริการร้าน Kaowkitkat', this)" class="bounce-hover bg-[#e7faff] hover:bg-[#f2dfff] text-[#73373b] text-xs font-semibold px-3.5 py-1.5 rounded-full transition-colors flex items-center gap-1 border border-[#ffd6f7] flex-shrink-0">
+                    ✨ คัดลอก
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer Thank You -->
+        <div class="pt-4 text-center space-y-1">
+            <p class="text-sm font-semibold">𓈒 𐙚 𝗧𝗵𝗮𝗻𝗸 𝘆𝗼𝘂 𝗻𝗮𝗮 🥛 𓈒</p>
+            <p class="text-xs opacity-80">♡ 𐄙 ขอบคุณที่ใช้บริการเค้านะคะ 🥤 .ᐟ</p>
+        </div>
+
+    </div>
+
+    <script>
+        function copyText(text, buttonElement) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                document.execCommand('copy');
+                showToast("คัดลอกสำเร็จแล้วค่ะ 🌸");
+
+                const originalHtml = buttonElement.innerHTML;
+                buttonElement.innerHTML = '✔ เรียบร้อย';
+                buttonElement.classList.add('opacity-80');
+                
+                setTimeout(() => {
+                    buttonElement.innerHTML = originalHtml;
+                    buttonElement.classList.remove('opacity-80');
+                }, 2000);
+
+            } catch (err) {
+                console.error('ไม่สามารถคัดลอกได้:', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            
+            if (message) {
+                toastMessage.textContent = message;
+            }
+            
+            toast.classList.remove('opacity-0', '-translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', '-translate-y-4');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
